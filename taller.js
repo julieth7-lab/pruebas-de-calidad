@@ -5,35 +5,36 @@ const catalogo = [
   { id: 3, nombre: "Derecho", duracion: "10 semestres" }
 ];
 
-// Mostrar catálogo
 catalogo.forEach(programa => {
-  console.log(${programa.id}. ${programa.nombre} - ${programa.duracion});
+  console.log(programa.id + ". " + programa.nombre + " - " + programa.duracion);
 });
 
-
-document.body.innerHTML += `
+const formHTML = `
   <form id="formInscripcion">
     <h2>Solicitud de Inscripción</h2>
     <label>Nombre: <input type="text" id="nombre" /></label><br>
     <label>Programa ID: <input type="text" id="programaId" /></label><br>
-    <button type="button" onclick="enviarSolicitud()">Enviar</button>
+    <button type="button" id="enviarBtn">Enviar</button>
   </form>
 `;
-
+document.body.innerHTML += formHTML;
 
 function enviarSolicitud() {
-  const nombre = document.getElementById("nombre").value;
-  const programaId = document.getElementById("programaId").value;
+  var nombre = document.getElementById("nombre").value;
+  var programaId = document.getElementById("programaId").value;
 
+  if (nombre === "") {
+    alert("El nombre es obligatorio");
+    return;
+  }
+  if (programaId === "") {
+    alert("El ID del programa es obligatorio");
+    return;
+  }
 
-  const solicitud = INSERT INTO solicitudes (nombre, programaId) VALUES ('${nombre}', '${programaId}');
-  console.log("Solicitud enviada:", solicitud);
-
-  eval(solicitud);
-
-  alert("Solicitud enviada correctamente.");
+  alert('Solicitud para ' + nombre + ' en el programa ' + programaId);
 }
 
+document.getElementById("enviarBtn").addEventListener("click", enviarSolicitud);
 
 window.catalogo = catalogo;
-window.enviarSolicitud = enviarSolicitud;
